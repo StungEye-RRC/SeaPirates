@@ -32,5 +32,6 @@ public:
 	void dragEvent(ofDragInfo dragInfo) override;
 	void gotMessage(ofMessage msg) override;
 
-	Ship ssGlutton;
+	const int numberOfShips{24};
+	std::vector<Ship> ships;
 };
