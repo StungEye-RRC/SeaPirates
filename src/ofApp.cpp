@@ -11,16 +11,10 @@ void ofApp::setup() {
 
 		const Point speed{ ofRandom(3) + 3, ofRandom(3) + 3 };
 
-		ofImage avatar;
-		avatar.load("Ships\\ship (" + std::to_string(i % 24) + ").png");
-
-		Ship ship{
+		ships.emplace_back(
 			"Ships\\ship (" + std::to_string(i % 24) + ").png",
 			coordinate,
-			speed
-		};
-
-		ships.push_back(ship);
+			speed);
 	}
 }
 
