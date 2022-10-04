@@ -1,17 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
-
-struct Point {
-	int x{0};
-	int y{0};
-};
-
-struct Ship {
-	Point coordinate;
-	Point speed;
-	ofImage avatar;
-};
+#include "ship.h"
 
 class ofApp : public ofBaseApp {
 
