@@ -45,3 +45,19 @@ void Ship::bounceOnEdge() {
 		speed.x *= -1;
 	}
 }
+
+std::ostream& operator<<(std::ostream& out, const Ship& ship) {
+	std::string state;
+
+	switch(ship.state) {
+	case Ship::State::moving:  state = "Moving";  break;
+	case Ship::State::hovered: state = "Hovered"; break;
+	case Ship::State::paused:  state = "Paused";  break;
+	}
+
+	out << "Ship X: " << ship.coordinate.x
+		<< " Y: " << ship.coordinate.y
+		<< " State: " << state << "\n";
+
+	return out;
+}

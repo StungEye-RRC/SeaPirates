@@ -30,6 +30,7 @@ void ofApp::draw() {
 	ofBackgroundGradient(ofColor::blue, ofColor::darkBlue);
 
 	for (const auto& ship : ships) {
+		std::cout << ship << "\n";
 		ship.draw();
 	}
 }
