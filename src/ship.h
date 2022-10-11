@@ -25,5 +25,5 @@ public:
 	friend std::ostream& operator<<(std::ostream& out, const Ship& ship);
 private:
 	void bounceOnEdge();
-	bool isShipHovered(double mouseX, double mouseY);
+	bool isShipHovered(double mouseX, double mouseY) const;
 };

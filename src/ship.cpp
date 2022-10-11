@@ -18,22 +18,27 @@ Ship::Ship(const ofImage& avatar, const Point& coordinate, const Point& speed):
 }
 
 void Ship::move() {
-	coordinate.x += speed.x;
-	coordinate.y += speed.y;
-	bounceOnEdge();
-}
-
-void Ship::draw() const {
-	avatar.draw(coordinate.x, coordinate.y);
-
-	if (state == State::hovered) {
-		ofDrawRectangle(coordinate.x, coordinate.y, 
-		               avatar.getWidth(), avatar.getHeight());
+	if (state != State::paused) {
+		coordinate.x += speed.x;
+		coordinate.y += speed.y;
+		bounceOnEdge();
 	}
 }
 
+void Ship::draw() const {
+	if (state == State::hovered) {
+		ofSetColor(ofColor::green);
+	} else if (state == State::paused) {
+		ofSetColor(ofColor::red);
+	} else {
+		ofSetColor(255);
+	}
+
+	avatar.draw(coordinate.x, coordinate.y);
+}
+
 void Ship::processMouse(double mouseX, double mouseY, bool isMousePressed) {
-	bool isHovered = isShipHovered(mouseX, mouseY);
+	const bool isHovered{ isShipHovered(mouseX, mouseY) };
 
 	if (isHovered && isMousePressed) {
 		state = State::paused;
@@ -64,8 +69,11 @@ void Ship::bounceOnEdge() {
 	}
 }
 
-bool Ship::isShipHovered(double mouseX, double mouseY) {
-	return true;
+bool Ship::isShipHovered(double mouseX, double mouseY) const {
+	return (mouseX > coordinate.x)
+		&& (mouseY > coordinate.y)
+		&& (mouseX < coordinate.x + avatar.getWidth())
+		&& (mouseY < coordinate.y + avatar.getHeight());
 }
 
 std::ostream& operator<<(std::ostream& out, const Ship& ship) {
