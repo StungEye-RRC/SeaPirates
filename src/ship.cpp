@@ -1,5 +1,6 @@
 #include "ship.h"
 #include "ofAppRunner.h"
+#include "ofGraphics.h"
 
 Ship::Ship(const std::string& avatarFilename, const Point& coordinate, const Point& speed):
 	coordinate{ coordinate }, speed{speed} {
@@ -24,6 +25,23 @@ void Ship::move() {
 
 void Ship::draw() const {
 	avatar.draw(coordinate.x, coordinate.y);
+
+	if (state == State::hovered) {
+		ofDrawRectangle(coordinate.x, coordinate.y, 
+		               avatar.getWidth(), avatar.getHeight());
+	}
+}
+
+void Ship::processMouse(double mouseX, double mouseY, bool isMousePressed) {
+	bool isHovered = isShipHovered(mouseX, mouseY);
+
+	if (isHovered && isMousePressed) {
+		state = State::paused;
+	} else if (isHovered) {
+		state = State::hovered;
+	} else {
+		state = State::moving;
+	}
 }
 
 void Ship::bounceOnEdge() {
@@ -44,6 +62,10 @@ void Ship::bounceOnEdge() {
 		coordinate.x = 0;
 		speed.x *= -1;
 	}
+}
+
+bool Ship::isShipHovered(double mouseX, double mouseY) {
+	return true;
 }
 
 std::ostream& operator<<(std::ostream& out, const Ship& ship) {

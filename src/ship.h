@@ -20,8 +20,10 @@ public:
 
 	void move();
 	void draw() const;
+	void processMouse(double mouseX, double mouseY, bool isMousePressed);
 
 	friend std::ostream& operator<<(std::ostream& out, const Ship& ship);
 private:
 	void bounceOnEdge();
+	bool isShipHovered(double mouseX, double mouseY);
 };

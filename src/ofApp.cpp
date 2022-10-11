@@ -22,6 +22,7 @@ void ofApp::setup() {
 void ofApp::update() {
 	for (auto& ship : ships) {
 		ship.move();
+		ship.processMouse(ofGetMouseX(), ofGetMouseY(), ofGetMousePressed());
 	}
 }
 
